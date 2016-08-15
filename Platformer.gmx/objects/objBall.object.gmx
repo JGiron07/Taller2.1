@@ -65,6 +65,23 @@ key_space = keyboard_check_pressed(vk_space);
 move = key_right - key_left;
 hsp = move * movespeed;
 
+// colision horizontal
+
+if (place_meeting(x+hsp, y, objBlock)) {
+    while(!place_meeting(x+sign(hsp), y, objBlock)){
+        x += sign(hsp);
+    }
+    hsp = 0;
+}
+
+// colision vertical
+
+if (place_meeting(x, y+vsp, objBlock)) {
+    while(!place_meeting(x, y+sign(vsp), objBlock)){
+        y += sign(vsp);
+    }
+    vsp = 0;
+}
 x += hsp;
 
 if (vsp &lt; 10) {vsp += grav;}
@@ -72,6 +89,7 @@ if (vsp &lt; 10) {vsp += grav;}
 if (place_meeting(x, y+1, objBlock)){
     vsp = key_space * -jumpspeed;
 }
+y += vsp;
 </string>
           </argument>
         </arguments>
